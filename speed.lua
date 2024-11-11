@@ -1,9 +1,9 @@
 -- Configuration
-getgenv().speed = {
+local speed = {
     enabled = false, -- Enable or disable the speed boost
     speed = 16,    -- Desired walk speed
     control = false, -- Enable enhanced control
-    friction = 2.0,  -- Custom friction factor for more control
+    friction = 2.0, -- Custom friction factor for more control
 }
 
 -- Function to set the player's walk speed
@@ -15,19 +15,25 @@ local function setSpeed(player, speed)
     end
 end
 
-
-local function control(player)
+-- Enhanced control function
+local function enhanceControl(player, reset)
     local character = player.Character or player.CharacterAdded:Wait()
-    local rootPart = character:WaitForChild("HumanoidRootPart")
-    
-    -- Apply custom friction or dampening
-    rootPart.CustomPhysicalProperties = PhysicalProperties.new(
-        0.7, -- Density
-        speed.friction, -- Friction
-        0.5, -- Elasticity
-        1.0, -- FrictionWeight
-        0.5  -- ElasticityWeight
-    )
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    if rootPart then
+        if reset then
+            -- Reset to default physical properties
+            rootPart.CustomPhysicalProperties = PhysicalProperties.new()
+        else
+            -- Apply custom friction or dampening
+            rootPart.CustomPhysicalProperties = PhysicalProperties.new(
+                0.7, -- Density
+                speed.friction, -- Friction
+                0.5, -- Elasticity
+                1.0, -- FrictionWeight
+                0.5  -- ElasticityWeight
+            )
+        end
+    end
 end
 
 -- Apply speed and controls to the player's character
@@ -37,12 +43,12 @@ local function applySpeedBoost(player)
     if speed.enabled then
         setSpeed(player, speed.speed)
         if speed.control then
-            control(player)
+            enhanceControl(player, false) -- Apply enhanced control
         end
     else
         setSpeed(player, 16) -- Default walk speed
         if speed.control then
-            control(player) -- Reset to default physics
+            enhanceControl(player, true) -- Reset control to default
         end
     end
 end
@@ -64,5 +70,7 @@ end)
 game:GetService("RunService").RenderStepped:Connect(function()
     if speed.enabled then
         setSpeed(player, speed.speed)
+    else
+        applySpeedBoost(player)
     end
 end)
