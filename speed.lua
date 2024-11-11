@@ -1,9 +1,10 @@
 -- Configuration
 getgenv().speed = {
-    enabled = false, -- Enable or disable the speed boost
-    speed = 16,    -- Desired walk speed
+    enabled = false,       -- Enable or disable the speed boost
+    speed = 16,          -- Desired walk speed
     control = false, -- Enable enhanced control
-    friction = 2.0, -- Custom friction factor for more control
+    friction = 2.0,       -- Custom friction factor for more control
+    keybind = Enum.KeyCode.E -- Keybind to toggle the speed boost
 }
 
 -- Function to set the player's walk speed
@@ -53,6 +54,13 @@ local function applySpeedBoost(player)
     end
 end
 
+-- Toggle speed boost with keybind
+local function toggleSpeedBoost()
+    speed.enabled = not speed.enabled
+    print("Speed boost enabled:", speed.enabled)
+    applySpeedBoost(game.Players.LocalPlayer)
+end
+
 -- Main
 local player = game.Players.LocalPlayer
 
@@ -66,11 +74,16 @@ player.CharacterAdded:Connect(function()
     applySpeedBoost(player)
 end)
 
+-- Listen for key presses to toggle the speed boost
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == speed.keybind then
+        toggleSpeedBoost()
+    end
+end)
+
 -- Allow dynamic updates to speed
 game:GetService("RunService").RenderStepped:Connect(function()
     if speed.enabled then
         setSpeed(player, speed.speed)
-    else
-        applySpeedBoost(player)
     end
 end)
