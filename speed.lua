@@ -2,7 +2,7 @@
 getgenv().speed = {
     enabled = false, -- Enable or disable the speed boost
     speed = 16,    -- Desired walk speed
-    controlEnhancement = false, -- Enable enhanced control
+    control = false, -- Enable enhanced control
     friction = 2.0,  -- Custom friction factor for more control
 }
 
