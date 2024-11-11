@@ -1,5 +1,5 @@
 -- Configuration
-local speedConfig = {
+local speed = {
     enabled = false, -- Enable or disable the speed boost
     speed = 16,    -- Desired walk speed
     controlEnhancement = false, -- Enable enhanced control
