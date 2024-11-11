@@ -4,7 +4,7 @@ getgenv().speed = {
     speed = 16,          -- Desired walk speed
     control = false, -- Enable enhanced control
     friction = 2.0,       -- Custom friction factor for more control
-    keybind = Enum.KeyCode.E -- Keybind to toggle the speed boost
+    keybind = Enum.KeyCode.KeypadDivide -- yes.. i put it as divide.. on the keypad
 }
 
 -- Function to set the player's walk speed
