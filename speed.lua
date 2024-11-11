@@ -15,15 +15,15 @@ local function setSpeed(player, speed)
     end
 end
 
--- Enhanced control function
-local function enhanceControl(player)
+
+local function control(player)
     local character = player.Character or player.CharacterAdded:Wait()
     local rootPart = character:WaitForChild("HumanoidRootPart")
     
     -- Apply custom friction or dampening
     rootPart.CustomPhysicalProperties = PhysicalProperties.new(
         0.7, -- Density
-        speedConfig.friction, -- Friction
+        speed.friction, -- Friction
         0.5, -- Elasticity
         1.0, -- FrictionWeight
         0.5  -- ElasticityWeight
@@ -34,15 +34,15 @@ end
 local function applySpeedBoost(player)
     local character = player.Character or player.CharacterAdded:Wait()
 
-    if speedConfig.enabled then
-        setSpeed(player, speedConfig.speed)
-        if speedConfig.controlEnhancement then
-            enhanceControl(player)
+    if speed.enabled then
+        setSpeed(player, speed.speed)
+        if speed.control then
+            control(player)
         end
     else
         setSpeed(player, 16) -- Default walk speed
-        if speedConfig.controlEnhancement then
-            enhanceControl(player) -- Reset to default physics
+        if speed.control then
+            control(player) -- Reset to default physics
         end
     end
 end
@@ -60,9 +60,9 @@ player.CharacterAdded:Connect(function()
     applySpeedBoost(player)
 end)
 
--- Allow dynamic updates to speedConfig
+-- Allow dynamic updates to speed
 game:GetService("RunService").RenderStepped:Connect(function()
-    if speedConfig.enabled then
-        setSpeed(player, speedConfig.speed)
+    if speed.enabled then
+        setSpeed(player, speed.speed)
     end
 end)
