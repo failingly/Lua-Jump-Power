@@ -1,5 +1,5 @@
 -- Configuration
-local speed = {
+getgenv().speed = {
     enabled = false, -- Enable or disable the speed boost
     speed = 16,    -- Desired walk speed
     control = false, -- Enable enhanced control
