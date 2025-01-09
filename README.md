@@ -3,7 +3,7 @@ roblox speed script | dont remove the second "e"
 
 ## Loading the speed
 ```lua
-https://raw.githubusercontent.com/Stratxgy/Lua-Speed/refs/heads/main/speed.lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Stratxgy/Lua-Speed/refs/heads/main/speed.lua"))()
 ```
 
 
