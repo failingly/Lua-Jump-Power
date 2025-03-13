@@ -1,6 +1,6 @@
 # Lua-Jump-Power
 
-## Loading the speed
+## Loading the script
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Stratxgy/Lua-Speed/refs/heads/main/speed.lua"))()
 ```
