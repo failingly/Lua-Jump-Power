@@ -1,18 +1,18 @@
 
-getgenv().speed = {
-    enabled = false,     
-    speed = 16,        
+getgenv().jump = {
+    enabled = false,
+    power = 50, 
     control = false,
     friction = 2.0,    
     keybind = Enum.KeyCode.KeypadDivide 
 }
 
-
-local function setSpeed(player, speed)
+local function setJumpPower(player, power)
     local character = player.Character or player.CharacterAdded:Wait()
     local humanoid = character:FindFirstChildOfClass("Humanoid")
     if humanoid then
-        humanoid.WalkSpeed = speed
+        humanoid.UseJumpPower = true
+        humanoid.JumpPower = power
     end
 end
 
@@ -21,13 +21,11 @@ local function enhanceControl(player, reset)
     local rootPart = character:FindFirstChild("HumanoidRootPart")
     if rootPart then
         if reset then
-    
             rootPart.CustomPhysicalProperties = PhysicalProperties.new()
         else
-      
             rootPart.CustomPhysicalProperties = PhysicalProperties.new(
                 0.7, 
-                speed.friction,
+                jump.friction,
                 0.5,
                 1.0, 
                 0.5  
@@ -36,51 +34,46 @@ local function enhanceControl(player, reset)
     end
 end
 
-local function applySpeedBoost(player)
+local function applyJumpBoost(player)
     local character = player.Character or player.CharacterAdded:Wait()
 
-    if speed.enabled then
-        setSpeed(player, speed.speed)
-        if speed.control then
+    if jump.enabled then
+        setJumpPower(player, jump.power)
+        if jump.control then
             enhanceControl(player, false) 
         end
     else
-        setSpeed(player, 16)
-        if speed.control then
+        setJumpPower(player, 50) 
+        if jump.control then
             enhanceControl(player, true) 
         end
     end
 end
 
-
-local function toggleSpeedBoost()
-    speed.enabled = not speed.enabled
-    print("Speed boost enabled:", speed.enabled)
-    applySpeedBoost(game.Players.LocalPlayer)
+local function toggleJumpBoost()
+    jump.enabled = not jump.enabled
+    print("Jump boost enabled:", jump.enabled)
+    applyJumpBoost(game.Players.LocalPlayer)
 end
 
 local player = game.Players.LocalPlayer
 
-
 if player.Character then
-    applySpeedBoost(player)
+    applyJumpBoost(player)
 end
 
-
 player.CharacterAdded:Connect(function()
-    applySpeedBoost(player)
+    applyJumpBoost(player)
 end)
 
-
 game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
-    if not gameProcessed and input.KeyCode == speed.keybind then
-        toggleSpeedBoost()
+    if not gameProcessed and input.KeyCode == jump.keybind then
+        toggleJumpBoost()
     end
 end)
 
-
 game:GetService("RunService").RenderStepped:Connect(function()
-    if speed.enabled then
-        setSpeed(player, speed.speed)
+    if jump.enabled then
+        setJumpPower(player, jump.power)
     end
 end)
