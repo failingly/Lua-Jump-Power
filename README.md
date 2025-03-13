@@ -9,9 +9,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Stratxgy/Lua-Speed/re
 
 ## Settings
 ```lua
-getgenv().speed = {
-    enabled = false,     
-    speed = 16,        
+getgenv().jump = {
+    enabled = false,
+    power = 50, 
     control = false,
     friction = 2.0,    
     keybind = Enum.KeyCode.KeypadDivide 
