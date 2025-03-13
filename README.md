@@ -2,7 +2,7 @@
 
 ## Loading the script
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Stratxgy/Lua-Speed/refs/heads/main/speed.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/failingly/Lua-Jump-Power/refs/heads/main/speed.lua"))()
 ```
 
 
