@@ -1,4 +1,3 @@
-
 getgenv().jump = {
     enabled = false,
     power = 50, 
